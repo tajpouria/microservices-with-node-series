@@ -1,11 +1,10 @@
 {
-  "name": "comment-service",
+  "name": "query-service",
   "version": "0.0.0",
-  "description": "",
   "keywords": [],
   "author": "tajpouria <tajpouria.dev@gmail.com>",
   "license": "MIT",
-  "main": "lib/comment-service.ts",
+  "main": "lib/query-service.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -23,7 +22,7 @@
   "scripts": {
     "tsc": "tsc",
     "start:tsc": "tsc -W",
-    "start:nodemon": "nodemon dist/comment-service.js",
+    "start:nodemon": "nodemon dist/query-service.js",
     "start": "concurrently npm:start:*",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
