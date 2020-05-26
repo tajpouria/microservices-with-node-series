@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { request } from "@internal/utils";
+
 import { commentValidator } from "./commentValidator";
 import { Comment } from "./commentModel";
 import { logger } from "./utils";
@@ -29,6 +31,22 @@ commentRouter.post("/:id/comment", async (req, res) => {
     const comment = new Comment(value);
     await comment.save();
     logger.info("%s Created", comment);
+
+    const { EVENT_BROKER = "{}" } = process.env;
+
+    const eventBroker = JSON.parse(EVENT_BROKER) as {
+      hostname: string;
+      port: string;
+      path: string;
+    };
+
+    logger.info("Emitting %s to event-broker", comment);
+    await request({
+      ...eventBroker,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "COMMENT_CREATED", data: comment }),
+    });
 
     res.sendStatus(201);
   } catch (error) {

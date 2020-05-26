@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { request } from "@internal/utils";
 
 import { postValidators } from "./postValidators";
 import { Post } from "./postModel";
@@ -26,6 +27,22 @@ postRouter.post("", async (req, res) => {
     const post = new Post(value);
     await post.save();
     logger.info("%s Created.", post);
+
+    const { EVENT_BROKER = "{}" } = process.env;
+
+    const eventBroker = JSON.parse(EVENT_BROKER) as {
+      hostname: string;
+      port: string;
+      path: string;
+    };
+
+    logger.info("Emitting %s to event-broker", post);
+    await request({
+      ...eventBroker,
+      method: "POST",
+      body: JSON.stringify({ type: "POST_CREATED", data: post }),
+      headers: { "Content-Type": "application/json" },
+    });
 
     res.sendStatus(201);
   } catch (error) {

@@ -5,6 +5,7 @@ import { cors } from "@internal/utils";
 
 import { commentRouter } from "./commentRouter";
 import { logger } from "./utils";
+import { eventRouter } from "./eventRouter";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ dotenv.config();
     app.use(express.json());
 
     app.use("/post", commentRouter);
+    app.use("/event", eventRouter);
 
     app.listen(PORT, () =>
       logger.info("%s is Listening on port %s", SERVICE_NAME, PORT),
