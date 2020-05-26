@@ -24,6 +24,7 @@
     "tsc": "tsc",
     "start:tsc": "tsc -W",
     "start:nodemon": "nodemon dist/comment-service.js",
+    "start": "concurrently npm:start:*",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {

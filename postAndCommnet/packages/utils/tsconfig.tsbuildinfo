@@ -442,7 +442,7 @@
         "affectsGlobalScope": false
       },
       "./lib/logger.ts": {
-        "version": "46d7acf46f56169b9cd74389206e51f08d5b7aad3cc146265f741ae0d6f2520e",
+        "version": "b3b1b10c6c2d45f3c878134e443ea83458d8157cc7b25c0a9b11450e6f7399f9",
         "signature": "def3e9eae3890d0838cb10cb4895e53ce277486eba05801f56eb0bf64596cd98",
         "affectsGlobalScope": false
       },
@@ -487,7 +487,7 @@
         "affectsGlobalScope": false
       },
       "./lib/middleware.ts": {
-        "version": "2cf90378446c72e826be8ff19cd59b7bd5e2cda4786566ee93ddd11c6ac9b552",
+        "version": "b5df1569bf13bf96ede984edfc9f0c606bcbeace54feacbff3f7c9d91389cea3",
         "signature": "94400214fea3d3cf82ec59171778d8b2523d68467216dc1c47a57d1e5b7d8b5e",
         "affectsGlobalScope": false
       },

@@ -6,10 +6,10 @@
       {{ label }}
     </span>
     <input
-      v-bind="$props"
+      @input="handleInput"
+      v-bind="$props.inputProps"
       :id="label"
       type="text"
-      required
       class="text-black-800 bg-white
     focus:outline-none focus:shadow-outline invalid:text-red-600 border
     border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none
@@ -22,12 +22,16 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component({
-  props: {
-    label: { type: String, required: true },
-    placeholder: String,
-  },
+  props: ["label", "inputProps"],
   data() {
-    return {};
+    return {
+      content: this.value,
+    };
+  },
+  methods: {
+    handleInput(e) {
+      this.$emit("input", e.target.value);
+    },
   },
 })
 export default class TextField extends Vue {}

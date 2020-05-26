@@ -7,7 +7,7 @@ interface IComment extends mongoose.Document {
 
 const commentSchema = new mongoose.Schema<IComment>({
   content: { type: String, required: true },
-  commentId: { type: String, required: true, unique: true },
+  postId: { type: String, required: true },
 });
 
 export const Comment = mongoose.model<IComment>("Comment", commentSchema);

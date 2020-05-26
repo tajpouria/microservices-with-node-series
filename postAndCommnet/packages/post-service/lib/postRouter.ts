@@ -21,7 +21,7 @@ postRouter.post("", async (req, res) => {
   try {
     const { value, error } = postValidators.validate(req.body);
 
-    if (error) return res.status(400).json(error);
+    if (error) return res.status(400).json(error.details);
 
     const post = new Post(value);
     await post.save();

@@ -17,7 +17,7 @@ export const Logger = (logDir: string) =>
         level: "error",
       }),
       new transports.File({
-        filename: `${logDir}/logs/service-combined.log`,
+        filename: `${logDir}/service-combined.log`,
       }),
       new transports.Console({
         format: format.simple(),

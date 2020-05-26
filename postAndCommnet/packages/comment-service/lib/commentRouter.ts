@@ -7,9 +7,9 @@ const commentRouter = Router();
 
 commentRouter.get("/:id/comment", async (req, res) => {
   try {
-    const commentId = req.params?.commentId ?? null;
+    const postId = req.params?.id;
 
-    const comments = (await Comment.find({ commentId })) || [];
+    const comments = postId ? (await Comment.find({ postId })) || [] : [];
 
     res.json(comments);
   } catch (error) {
@@ -24,7 +24,7 @@ commentRouter.post("/:id/comment", async (req, res) => {
 
     const { value, error } = commentValidator.validate({ ...req.body, postId });
 
-    if (error) return res.status(400).json(error);
+    if (error) return res.status(400).json(error.details);
 
     const comment = new Comment(value);
     await comment.save();

@@ -4,9 +4,12 @@
     class="flex flex-col items-center mt-4 sm:mt-5 md:mt-7 lg:mt-8"
   >
     <text-field
-      label="Title"
       v-model="values.title"
-      placeholder="My Awesome Post!"
+      label="Title"
+      :inputProps="{
+        placeholder: 'My Awesome Post!',
+        required: true,
+      }"
     />
     <submit-btn />
   </form>
@@ -36,7 +39,9 @@ import { createPost } from "../http";
     async handleSubmit() {
       try {
         await createPost({ title: this.values.title });
-      } catch (error) {}
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 })

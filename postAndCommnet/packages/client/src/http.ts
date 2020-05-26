@@ -1,7 +1,7 @@
-const { POST_SERVICE_URL, COMMENT_SERVICE_URL } = process.env;
+const { VUE_APP_POST_SERVICE_URL, VUE_APP_COMMENT_SERVICE_URL } = process.env;
 
 export const createPost = (body: { title: string }) =>
-  fetch(`${POST_SERVICE_URL}/post`, {
+  fetch(`${VUE_APP_POST_SERVICE_URL}/post`, {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -9,7 +9,7 @@ export const createPost = (body: { title: string }) =>
     },
   });
 
-export const getPosts = () => fetch(`${POST_SERVICE_URL}/post`);
+export const getPosts = () => fetch(`${VUE_APP_POST_SERVICE_URL}/post`);
 
 export const createComment = ({
   postId,
@@ -18,7 +18,7 @@ export const createComment = ({
   postId: string;
   content: string;
 }) =>
-  fetch(`${COMMENT_SERVICE_URL}/post/${postId}/comment`, {
+  fetch(`${VUE_APP_COMMENT_SERVICE_URL}/post/${postId}/comment`, {
     method: "POST",
     body: JSON.stringify({ content }),
     headers: {
@@ -27,4 +27,4 @@ export const createComment = ({
   });
 
 export const getPostComment = ({ postId }: { postId: string }) =>
-  fetch(`${COMMENT_SERVICE_URL}/post/${postId}/comment`);
+  fetch(`${VUE_APP_COMMENT_SERVICE_URL}/post/${postId}/comment`);

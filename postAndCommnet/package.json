@@ -2,11 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "tsc": "tsc",
-    "start:tsc": "lerna run start:tsc --parallel",
-    "start:nodemon": "lerna run start:nodemon --stream --parallel",
-    "start:client": "lerna run serve --stream --parallel",
-    "start": "concurrently npm:start:*"
+    "server": "lerna run start --stream --parallel",
+    "client": "lerna run serve --stream --parallel"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
