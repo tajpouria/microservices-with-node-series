@@ -1,4 +1,5 @@
 import { Router } from "express";
+import mongoose from "mongoose";
 import { request } from "@internal/utils";
 
 import { commentValidator } from "./commentValidator";
@@ -28,7 +29,10 @@ commentRouter.post("/:id/comment", async (req, res) => {
 
     if (error) return res.status(400).json(error.details);
 
-    const comment = new Comment(value);
+    const comment = new Comment({
+      ...value,
+      postId: mongoose.Types.ObjectId(value.postId),
+    });
     await comment.save();
     logger.info("%s Created", comment);
 

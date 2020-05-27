@@ -10,9 +10,15 @@
         <li
           v-for="c in post.comments"
           :key="c._id"
-          class="text-gray-600 text-sm md:text-base"
+          class="text-sm md:text-base"
         >
-          > {{ c.content }}
+          <span v-if="c.status === 'approved'" class="text-gray-600 "
+            >> {{ c.content }}</span
+          >
+          <span v-else-if="c.status === 'pending'" class="text-blue-600"
+            >> Pending for moderation...</span
+          >
+          <span v-else class="text-red-600">> Rejected</span>
         </li>
       </ul>
     </div>

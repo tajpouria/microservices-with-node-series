@@ -1,5 +1,7 @@
 import { Router } from "express";
-import { Query } from "./queryModel";
+
+import { Comment } from "./commentModel";
+import { Post } from "./postModel";
 import { logger } from "./utils";
 
 const eventRouter = Router();
@@ -7,44 +9,36 @@ const eventRouter = Router();
 eventRouter.post("", async (req, res) => {
   try {
     const event =
-      ((req.body ?? null) as { type: string; data: Record<string, any> }) ||
-      null;
-
-    console.log(event);
+      (req.body as { type: string; data: Record<string, any> }) || undefined;
 
     if (event) {
       switch (event.type) {
         case "POST_CREATED":
-          const query = new Query(event.data);
-          await query.save();
-          logger.info("%s Created", query);
+          const post = new Post(event.data);
+          await post.save();
+          logger.info("%s Created", post);
 
           break;
-
         case "COMMENT_CREATED":
-          const postId = event.data?.postId;
-          await Query.updateOne(
-            { _id: postId },
-            {
-              $push: {
-                comments: event.data as { content: string; postId: string },
-              },
-            },
-          );
-          logger.info("%s Added to post %s", event.data, postId);
+          const comment = new Comment(event.data);
+          await comment.save();
+          logger.info("%s Created", comment);
 
           break;
+        case "COMMENT_UPDATED":
+          const { _id, ...updatedComment } = event.data;
+          await Comment.updateOne({ _id }, { $set: updatedComment });
+          logger.info("%s Updated", _id);
 
+          break;
         default:
           break;
       }
     }
-
-    res.end();
   } catch (error) {
     logger.error(new Error(error));
-    res.sendStatus(500);
   }
+  res.end();
 });
 
 export { eventRouter };

@@ -1,14 +1,26 @@
 import { Router } from "express";
 
-import { Query } from "./queryModel";
 import { logger } from "./utils";
+import { Post } from "./postModel";
 
 const queryRouter = Router();
 
-queryRouter.get("", async (_, res) => {
+queryRouter.get("", (_, res) => {
   try {
-    const queries = (await Query.find()) || [];
-    res.json(queries);
+    Post.aggregate([
+      {
+        $lookup: {
+          from: "comments",
+          localField: "_id",
+          foreignField: "postId",
+          as: "comments",
+        },
+      },
+    ]).exec((error, result) => {
+      if (error) throw new Error(error);
+
+      res.json(result);
+    });
   } catch (error) {
     logger.error(new Error(error));
     res.sendStatus(500);
