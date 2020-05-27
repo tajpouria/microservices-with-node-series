@@ -10,6 +10,8 @@ eventRouter.post("", async (req, res) => {
       ((req.body ?? null) as { type: string; data: Record<string, any> }) ||
       null;
 
+    console.log(event);
+
     if (event) {
       switch (event.type) {
         case "POST_CREATED":

@@ -8,7 +8,7 @@
       </div>
       <ul class="border border-purple-500 rounded">
         <li
-          v-for="c in comments"
+          v-for="c in post.comments"
           :key="c._id"
           class="text-gray-600 text-sm md:text-base"
         >
@@ -40,21 +40,12 @@ import { createComment, getPostComment } from "../../http";
   props: { post: Object },
   data() {
     return {
-      comments: [],
       values: {
         content: "",
       },
     };
   },
   components: { "text-field": TextField, "submit-btn": SubmitBtn },
-  async created() {
-    try {
-      const response = await getPostComment({ postId: this.post._id });
-      this.comments = await response.json();
-    } catch (error) {
-      console.error(error);
-    }
-  },
   methods: {
     async handleSubmit(e) {
       try {

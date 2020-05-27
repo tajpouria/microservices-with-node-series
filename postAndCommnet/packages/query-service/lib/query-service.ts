@@ -14,7 +14,7 @@ dotenv.config();
     const {
       SERVICE_NAME = "query-service",
       PORT = 4002,
-      DB_URL = "",
+      DB_URL = "mongodb://127.0.0.1:27017/queries",
     } = process.env;
 
     await mongoose.connect(

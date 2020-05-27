@@ -6,16 +6,17 @@ interface IQuery extends mongoose.Document {
 }
 const querySchema = new mongoose.Schema<IQuery>(
   {
+    _id: String,
     title: {
       type: String,
       required: true,
     },
     comments: {
-      type: Array,
+      type: [Object],
       default: [],
     },
   },
-  { timestamps: true, _id: false },
+  { timestamps: true },
 );
 
-export const Query = mongoose.model<IQuery>("Post", querySchema);
+export const Query = mongoose.model<IQuery>("Query", querySchema);

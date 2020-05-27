@@ -6,7 +6,7 @@
 
 <script>
 import { Vue, Component } from "vue-property-decorator";
-import { getPosts } from "../http";
+import { getPostAndComments } from "../http";
 import PostCard from "./elements/PostCard.vue";
 
 @Component({
@@ -20,7 +20,7 @@ import PostCard from "./elements/PostCard.vue";
   },
   async created() {
     try {
-      const response = await getPosts();
+      const response = await getPostAndComments();
       this.posts = await response.json();
     } catch (error) {
       console.error(error);
