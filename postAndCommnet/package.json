@@ -2,8 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "server": "lerna run start --stream --parallel",
-    "client": "lerna run serve --stream --parallel"
+    "server": "lerna run start --parallel",
+    "client": "lerna run serve --stream"
   },
   "devDependencies": {
     "lerna": "^3.22.0"

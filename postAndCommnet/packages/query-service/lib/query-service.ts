@@ -1,10 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { cors } from "@internal/utils";
+import { cors, request } from "@internal/utils";
 
 import { queryRouter } from "./queryRouter";
-import { logger } from "./utils";
+import { logger, eventHandler } from "./utils";
 import { eventRouter } from "./eventRouter";
 
 dotenv.config();
@@ -15,6 +15,7 @@ dotenv.config();
       SERVICE_NAME = "query-service",
       PORT = 4002,
       DB_URL = "mongodb://127.0.0.1:27017/queries",
+      EVENT_BROKER = "{}",
     } = process.env;
 
     await mongoose.connect(
@@ -34,9 +35,32 @@ dotenv.config();
     app.use("/query", queryRouter);
     app.use("/event", eventRouter);
 
-    app.listen(PORT, () =>
-      logger.info("%s is Listening on port %s", SERVICE_NAME, PORT),
-    );
+    app.listen(PORT, async () => {
+      logger.info("%s is Listening on port %s", SERVICE_NAME, PORT);
+
+      await new Promise((res) => setTimeout(res, 10000));
+
+      try {
+        const eventBroker = JSON.parse(EVENT_BROKER);
+        const response = (await request({
+          ...eventBroker,
+          method: "GET",
+        })) as string;
+
+        const events = JSON.parse(response) as {
+          type: string;
+          data: Record<string, any>;
+        }[];
+
+        for await (let eve of events) {
+          logger.info("Processing %s", eve);
+          await eventHandler(eve);
+        }
+      } catch (error) {
+        logger.error(error);
+        process.exit(1);
+      }
+    });
   } catch (error) {
     logger.error(new Error(error));
     process.exit(1);
