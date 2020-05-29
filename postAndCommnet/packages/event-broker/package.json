@@ -40,7 +40,7 @@
     "express": "^4.17.1"
   },
   "dependencies": {
-    "@internal/utils": "0.0.0",
+    "@tajpouria/mss-utils": "0.0.1",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.6",
     "@types/mongoose": "^5.7.21",

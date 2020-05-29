@@ -5,9 +5,9 @@ import { Post } from "./postModel";
 
 const queryRouter = Router();
 
-queryRouter.get("", (_, res) => {
+queryRouter.get("", async (_, res) => {
   try {
-    Post.aggregate([
+    const queries = await Post.aggregate([
       {
         $lookup: {
           from: "comments",
@@ -16,11 +16,9 @@ queryRouter.get("", (_, res) => {
           as: "comments",
         },
       },
-    ]).exec((error, result) => {
-      if (error) throw new Error(error);
+    ]);
 
-      res.json(result);
-    });
+    res.json(queries);
   } catch (error) {
     logger.error(new Error(error));
     res.sendStatus(500);

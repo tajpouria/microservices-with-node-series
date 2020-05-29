@@ -41,7 +41,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "@internal/utils": "0.0.0",
+    "@tajpouria/mss-utils": "0.0.1",
     "bad-words": "^3.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1"

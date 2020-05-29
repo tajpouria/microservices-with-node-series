@@ -27,3 +27,24 @@ There is two major approach in order to two services to communicate with each ot
     2. Other services listening to that events, And if they suppose to care about that particular event! Grab information from event and apply changes, For example store the information inside the database
 
     This kinda approach commonly needs more dataStores, Cause data duplication and is harder to understand and implement
+
+## Sundry
+
+### .dockerignore https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/
+
+Helps to define the build context:
+
+.dockerignore
+```
+# ignore .git and .cache folders
+.git
+.cache
+
+# ignore all *.class files in all folders, including build root
+**/*.class
+
+# ignore all markdown files (md) beside all README*.md other than README-secret.md
+*.md
+!README*.md
+README-secret.md
+```

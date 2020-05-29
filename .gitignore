@@ -4,6 +4,6 @@
 **/.env
 **/*.lock
 **/*.log
-**/package.lock.json
+**/package-lock.json
 **/.vscode
 **/tsconfig.tsbuildinfo

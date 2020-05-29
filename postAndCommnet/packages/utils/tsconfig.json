@@ -1,8 +1,13 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./lib",
-    "composite": true
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true
   }
 }

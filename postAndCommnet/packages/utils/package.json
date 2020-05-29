@@ -1,6 +1,7 @@
 {
-  "name": "@internal/utils",
-  "version": "0.0.0",
+  "name": "@tajpouria/mss-utils",
+  "version": "0.0.1",
+  "private": false,
   "description": "",
   "keywords": [],
   "author": "tajpouria <tajpouria.dev@gmail.com>",
@@ -11,11 +12,8 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "dist"
   ],
-  "publishConfig": {
-    "registry": "https://registry.yarnpkg.com"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tajpouria/microservices-with-node-series.git"

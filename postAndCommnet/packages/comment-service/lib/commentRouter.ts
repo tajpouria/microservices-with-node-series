@@ -1,6 +1,6 @@
 import { Router } from "express";
 import mongoose from "mongoose";
-import { request } from "@internal/utils";
+import { request } from "@tajpouria/mss-utils";
 
 import { commentValidator } from "./commentValidator";
 import { Comment } from "./commentModel";

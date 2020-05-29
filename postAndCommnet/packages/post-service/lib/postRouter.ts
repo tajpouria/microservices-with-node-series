@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { request } from "@internal/utils";
+import { request } from "@tajpouria/mss-utils";
 
 import { postValidators } from "./postValidators";
 import { Post } from "./postModel";
