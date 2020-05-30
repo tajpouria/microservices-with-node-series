@@ -7,6 +7,4 @@ ENV PATH /usr/app/node_modules/.bin:$PATH
 COPY ./package.json .
 RUN npm i
 
-EXPOSE 3000
-
 CMD ["npm", "run", "serve"]

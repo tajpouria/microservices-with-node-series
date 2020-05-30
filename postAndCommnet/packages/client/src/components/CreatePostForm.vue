@@ -5,7 +5,7 @@
   >
     <text-field
       v-model="values.title"
-      label="Title"
+      label="Post Title"
       :inputProps="{
         placeholder: 'My Awesome Post!',
         required: true,

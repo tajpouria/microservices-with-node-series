@@ -2,7 +2,8 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
+  "scripts": { 
+  "clean": "rm -rf ./node_modules dist/ yarn.lock package-lock.json",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },

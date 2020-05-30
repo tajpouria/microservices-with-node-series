@@ -1,5 +1,5 @@
 import express from "express";
-import { request } from "@tajpouria/mss-utils";
+import { request } from "tajpouria-mss-utils";
 import { config } from "dotenv";
 import mongoose from "mongoose";
 

@@ -3,102 +3,82 @@ services:
   db:
     image: "mongo"
     volumes:
-      - "mongo-data:/var/lib/mongodb"
+      - "/var/lib/mongodb"
 
   event-broker:
     build:
       context: "./packages/event-broker"
       dockerfile: "./Dockerfile.dev"
-    restart: "always"
+    restart: "no"
     environment:
       - "SERVICE_NAME=event-broker"
       - "DB_URL=mongodb://db:27017/events"
       - "PORT=4005"
       - 'SUBSCRIBERS=[{"serviceName": "post-service", "hostname": "post-service", "port": 4000, "path": "/event"}, {"serviceName": "comment-service", "comment-service": "localhost", "port": 4001, "path": "/event"}, {"serviceName": "query-service", "hostname": "query-service", "port": 4002, "path": "/event"}, {"serviceName": "comment-moderator-service", "hostname": "comment-moderator-service", "port": 4003, "path": "/event"}]'
     volumes:
-      - "event-broker-node_modules:/usr/app/node_modules"
       - "./packages/event-broker:/usr/app"
 
   post-service:
     build:
       context: "packages/post-service"
       dockerfile: "./Dockerfile.dev"
-    restart: "always"
+    restart: "no"
     environment:
       - "SERVICE_NAME=post-service"
       - "PORT=4000"
       - "DB_URL=mongodb://db:27017/post"
       - 'EVENT_BROKER={"hostname": "event-broker", "port": 4005, "path": "/" }'
     volumes:
-      - "post-service-node_modules:/usr/app/node_modules"
       - "./packages/post-service:/usr/app"
 
   comment-service:
     build:
       context: "./packages/comment-service"
       dockerfile: "./Dockerfile.dev"
-    restart: "always"
+    restart: "no"
     environment:
       - "SERVICE_NAME=comment-service"
       - "PORT=4001"
       - "DB_URL=mongodb://db:27017/comments"
       - 'EVENT_BROKER={"hostname": "event-broker", "port": 4005, "path": "/" }'
     volumes:
-      - "comment-service-node_modules:/usr/app/node_modules"
       - "./packages/comment-service:/usr/app"
 
   query-service:
     build:
       context: "./packages/query-service"
       dockerfile: "./Dockerfile.dev"
-    restart: "always"
+    restart: "no"
     environment:
       - "SERVICE_NAME=query-service"
       - "PORT=4002"
       - "DB_URL=mongodb://db:27017/queries"
       - 'EVENT_BROKER={"hostname": "event-broker", "port": 4005, "path": "/" }'
     volumes:
-      - "query-service-node_modules:/usr/app/node_modules"
-      - "./packages/query-service:/user/app"
+      - "./packages/query-service:/usr/app"
 
   comment-moderator-service:
     build:
       context: "./packages/comment-moderator-service"
       dockerfile: "./Dockerfile.dev"
-    restart: "always"
+    restart: "no"
     environment:
       - "SERVICE_NAME=comment-moderator-service"
       - "PORT=4003"
       - 'EVENT_BROKER={"hostname": "event-broker", "port": 4005, "path": "/" }'
     volumes:
-      - "comment-moderator-service-node_modules:/usr/app/node_modules"
-      - "./packages/comment-moderator-service:/user/app"
+      - "./packages/comment-moderator-service:/usr/app"
 
   client:
     build:
       context: "./packages/client"
       dockerfile: "./Dockerfile.dev"
-    restart: "always"
+    restart: "no"
+    ports:
+      - "3000:3000"
     environment:
       - "VUE_APP_POST_SERVICE_URL=http://post-service:4000"
       - "VUE_APP_COMMENT_SERVICE_URL=http://comment-service:4001"
       - "VUE_APP_QUERY_SERVICE_URL=http://query-service:4002"
     volumes:
-      - "client-node_modules:/usr/app/node_modules"
-      - "./packages/client:/user/app"
-
-volumes:
-  mongo-data:
-    driver: "local"
-  event-broker-node_modules:
-    drive: "local"
-  post-service-node_modules:
-    driver: "local"
-  comment-service-node_modules:
-    driver: "local"
-  query-service-node_modules:
-    driver: "local"
-  comment-moderator-service-node_modules:
-    driver: "local"
-  client-node_modules:
-    driver: "local"
+      - "./packages/client:/usr/app"

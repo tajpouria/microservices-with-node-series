@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { cors } from "@tajpouria/mss-utils";
+import cors from "cors";
 
 import { postRouter } from "./postRouter";
 import { logger } from "./utils";

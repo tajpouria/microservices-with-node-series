@@ -1,6 +1,6 @@
 import { Router } from "express";
 import BadWords from "bad-words";
-import { request } from "@tajpouria/mss-utils";
+import { request } from "tajpouria-mss-utils";
 
 import { logger } from "./utils";
 

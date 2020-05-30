@@ -1,4 +1,4 @@
-import { Logger } from "@tajpouria/mss-utils";
+import { Logger } from "tajpouria-mss-utils";
 
 import { Comment } from "./commentModel";
 import { Post } from "./postModel";
