@@ -11,15 +11,23 @@ export const eventHandler = async (event: {
 }) => {
   switch (event.type) {
     case "POST_CREATED":
-      const post = new Post(event.data);
-      await post.save();
-      logger.info("%s Created", post);
+      const existingPost = await Post.findById(event.data?._id);
+
+      if (!existingPost) {
+        const post = new Post(event.data);
+        await post.save();
+        logger.info("%s Created", post);
+      }
 
       break;
     case "COMMENT_CREATED":
-      const comment = new Comment(event.data);
-      await comment.save();
-      logger.info("%s Created", comment);
+      const existingComment = await Comment.findById(event.data?._id);
+
+      if (!existingComment) {
+        const comment = new Comment(event.data);
+        await comment.save();
+        logger.info("%s Created", comment);
+      }
 
       break;
     case "COMMENT_UPDATED":

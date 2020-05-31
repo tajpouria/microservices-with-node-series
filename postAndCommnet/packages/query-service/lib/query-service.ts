@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { request } from "tajpouria-mss-utils";
-import cors from 'cors';
+import cors from "cors";
 
 import { queryRouter } from "./queryRouter";
 import { logger, eventHandler } from "./utils";
@@ -19,6 +19,8 @@ dotenv.config();
       EVENT_BROKER = "{}",
     } = process.env;
 
+    console.log(DB_URL);
+
     await mongoose.connect(
       DB_URL,
       {
@@ -30,10 +32,10 @@ dotenv.config();
 
     const app = express();
 
-    app.use(cors());
     app.use(express.json());
+    app.disable("x-powered-by");
 
-    app.use("/query", queryRouter);
+    app.use("/query", cors(), queryRouter);
     app.use("/event", eventRouter);
 
     app.listen(PORT, async () => {
