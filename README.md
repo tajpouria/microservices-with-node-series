@@ -30,21 +30,6 @@ There is two major approach in order to two services to communicate with each ot
 
 ## Sundry
 
-### .dockerignore https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/
+### Docker refresher https://github.com/tajpouria/Docker-And-Kubernetes-Series
 
-Helps to define the build context:
-
-.dockerignore
-```
-# ignore .git and .cache folders
-.git
-.cache
-
-# ignore all *.class files in all folders, including build root
-**/*.class
-
-# ignore all markdown files (md) beside all README*.md other than README-secret.md
-*.md
-!README*.md
-README-secret.md
-```
+### K8S refresher https://github.com/tajpouria/node-playground/tree/master/dockerAndK8s
