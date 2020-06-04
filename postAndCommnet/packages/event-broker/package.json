@@ -19,8 +19,8 @@
     "type": "git",
     "url": "git+https://github.com/tajpouria/microservices-with-node-series.git"
   },
-  "scripts": { 
-  "clean": "rm -rf ./node_modules dist/ yarn.lock package-lock.json",
+  "scripts": {
+    "clean": "rm -rf ./node_modules dist/ yarn.lock package-lock.json",
     "tsc": "tsc",
     "start:tsc": "tsc -W",
     "start:nodemon": "nodemon dist/event-broker.js",
@@ -33,17 +33,16 @@
   "homepage": "https://github.com/tajpouria/microservices-with-node-series#readme",
   "devDependencies": {
     "concurrently": "^5.2.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "mongoose": "^5.9.16",
-    "nodemon": "^2.0.4",
-    "ts-node": "^8.10.1",
-    "typescript": "^3.9.3"
-  },
-  "dependencies": {
-    "tajpouria-mss-utils": "^0.0.1",
+    "typescript": "^3.9.3",
     "@types/express": "^4.17.6",
     "@types/mongoose": "^5.7.21",
-    "@types/node": "^14.0.5"
+    "@types/node": "^14.0.5",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.16",
+    "tajpouria-mss-utils": "^0.0.1"
   }
 }

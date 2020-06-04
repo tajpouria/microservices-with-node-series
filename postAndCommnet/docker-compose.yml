@@ -15,7 +15,7 @@ services:
       - "SERVICE_NAME=event-broker"
       - "DB_URL=mongodb://db:27017/events"
       - "PORT=4005"
-      - 'SUBSCRIBERS=[{"serviceName": "post-service", "hostname": "post-service", "port": 4000, "path": "/event"}, {"serviceName": "comment-service", "comment-service": "localhost", "port": 4001, "path": "/event"}, {"serviceName": "query-service", "hostname": "query-service", "port": 4002, "path": "/event"}, {"serviceName": "comment-moderator-service", "hostname": "comment-moderator-service", "port": 4003, "path": "/event"}]'
+      - 'SUBSCRIBERS=[{"serviceName": "post-service", "hostname": "post-service", "port": 4000, "path": "/event"}, {"serviceName": "comment-service", "hostname": "localhost", "port": 4001, "path": "/event"}, {"serviceName": "query-service", "hostname": "query-service", "port": 4002, "path": "/event"}, {"serviceName": "comment-moderator-service", "hostname": "comment-moderator-service", "port": 4003, "path": "/event"}]'
     volumes:
       - "./packages/event-broker:/usr/app"
       - "/usr/app/node_modules"

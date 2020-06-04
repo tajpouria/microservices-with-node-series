@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-broker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: event-broker-pod
+  template:
+    metadata:
+      name: event-broker
+      labels:
+        name: event-broker-pod
+        tier: back-end
+    spec:
+      containers:
+        - name: postandcomment-event-broker
+          image: tajpouria/postandcomment-event-broker
+          env:
+            - name: SERVICE_NAME
+              value: "event-broker-service"
+            - name: PORT
+              value: "4005"
+            - name: DB_URL
+              value: "mongodb://db-clusterip:27017/event"
+            - name: SUBSCRIBERS
+              value: '[{"serviceName": "post-service", "hostname": "post-clusterip", "port": 4000, "path": "/event"}, {"serviceName": "comment-service", "hostname": "comment-clusterip", "port": 4001, "path": "/event"}, {"serviceName": "query-service", "hostname": "query-clusterip", "port": 4002, "path": "/event"}, {"serviceName": "comment-moderator-service", "hostname": "comment-moderator-clusterip", "port": 4003, "path": "/event"}]'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-broker-clusterip
+spec:
+  selector:
+    name: event-broker-pod
+  ports:
+    - targetPort: 4005
+      port: 4005

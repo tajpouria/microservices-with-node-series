@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: db-pod
+  template:
+    metadata:
+      name: db
+      labels:
+        name: db-pod
+        tier: back-end
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-clusterip
+spec:
+  selector:
+    name: db-pod
+  ports:
+    - targetPort: 27017
+      port: 27017

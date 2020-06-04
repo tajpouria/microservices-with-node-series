@@ -1,12 +1,9 @@
 import express from "express";
 import { request } from "tajpouria-mss-utils";
-import { config } from "dotenv";
 import mongoose from "mongoose";
 
 import { logger } from "./utils";
 import { Event } from "./EventModel";
-
-config();
 
 (async () => {
   const app = express();

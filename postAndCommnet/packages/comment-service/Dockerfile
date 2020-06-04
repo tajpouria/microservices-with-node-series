@@ -6,4 +6,4 @@ COPY ./package.json .
 RUN yarn --production
 COPY ./dist ./dist
 
-CMD ["node", "dist/post-service.js"] 
+CMD ["node", "dist/comment-service.js"] 

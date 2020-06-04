@@ -1,9 +1,6 @@
 import express from "express";
 import { logger } from "./utils";
-import { config } from "dotenv";
 import { eventRouter } from "./eventRouter";
-
-config();
 
 (() => {
   const app = express();

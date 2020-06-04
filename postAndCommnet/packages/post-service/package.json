@@ -19,8 +19,8 @@
     "type": "git",
     "url": "git+https://github.com/tajpouria/microservices-with-node-series.git"
   },
-  "scripts": { 
-  "clean": "rm -rf ./node_modules dist/ yarn.lock package-lock.json",
+  "scripts": {
+    "clean": "rm -rf ./node_modules dist/ yarn.lock package-lock.json",
     "tsc": "tsc",
     "start:tsc": "tsc -W",
     "start:nodemon": "nodemon dist/post-service.js",
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.6",
-    "@types/hapi__joi":"17.1.0",
+    "@types/hapi__joi": "17.1.0",
     "@types/mongoose": "^5.7.21",
     "@types/node": "^14.0.5",
     "concurrently": "^5.2.0",
@@ -45,7 +45,6 @@
   "dependencies": {
     "tajpouria-mss-utils": "^0.0.1",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "@hapi/joi": "17.1.1",
     "mongoose": "^5.9.15"

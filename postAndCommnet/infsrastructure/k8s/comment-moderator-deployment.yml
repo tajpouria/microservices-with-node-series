@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-moderator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: comment-moderator-pod
+  template:
+    metadata:
+      name: comment-moderator
+      labels:
+        name: comment-moderator-pod
+        tier: back-end
+    spec:
+      containers:
+        - name: postandcomment-comment-moderator
+          image: tajpouria/postandcomment-comment-moderator-service
+          env:
+            - name: SERVICE_NAME
+              value: "comment-moderator-service"
+            - name: PORT
+              value: "4003"
+            - name: EVENT_BROKER
+              value: '{ "hostname": "event-broker-clusterIP", "port": 4005, "path": "/" }'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comment-moderator-clusterip
+spec:
+  selector:
+    name: comment-moderator-pod
+  ports:
+    - targetPort: 4003
+      port: 4003

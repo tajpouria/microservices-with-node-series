@@ -1,14 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import { request } from "tajpouria-mss-utils";
 import cors from "cors";
 
 import { queryRouter } from "./queryRouter";
 import { logger, eventHandler } from "./utils";
 import { eventRouter } from "./eventRouter";
-
-dotenv.config();
 
 (async () => {
   try {
@@ -18,8 +15,6 @@ dotenv.config();
       DB_URL = "mongodb://127.0.0.1:27017/queries",
       EVENT_BROKER = "{}",
     } = process.env;
-
-    console.log(DB_URL);
 
     await mongoose.connect(
       DB_URL,
