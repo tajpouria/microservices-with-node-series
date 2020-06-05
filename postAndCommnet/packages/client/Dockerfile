@@ -1,10 +1,13 @@
-FROM node:alpine
-
+FROM node:alpine as build-stage
 WORKDIR /usr/app
 
-ENV PATH /usr/app/node_modules/.bin:$PATH
+COPY package.json .
+RUN yarn
+COPY . .
+RUN yarn run build
 
-COPY ./package.json .
-RUN npm i
-
-CMD ["npm", "run", "serve"]
+# production stage
+FROM nginx:alpine as production-stage
+COPY --from=build-stage /usr/app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

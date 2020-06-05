@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: postandcomment.com
+      http:
+        paths:
+          - path: /post
+            backend:
+              serviceName: post-clusterip
+              servicePort: 4000
+
+          - path: /post/?(.*)/comment
+            backend:
+              serviceName: comment-clusterip
+              servicePort: 4001
+
+          - path: /query
+            backend:
+              serviceName: query-clusterip
+              servicePort: 4002
+
+          - path: /
+            backend:
+              serviceName: client-clusterip
+              servicePort: 80
