@@ -1,0 +1,63 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifest:
+      - ./infrastructure/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: tajpouria/postandcomment-client
+      context: ./packages/client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+  artifacts:
+    - image: tajpouria/postandcomment-comment
+      context: ./packages/comment-service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "lib/**/*.ts"
+            dest: .
+  artifacts:
+    - image: tajpouria/postandcomment-post
+      context: ./packages/post-service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "lib/**/*.ts"
+            dest: .
+  artifacts:
+    - image: tajpouria/postandcomment-query
+      context: ./packages/query-service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "lib/**/*.ts"
+            dest: .
+  artifacts:
+    - image: tajpouria/postandcomment-event-broker
+      context: ./packages/event-broker
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "lib/**/*.ts"
+            dest: .
+  artifacts:
+    - image: tajpouria/postandcomment-comment-moderator-service
+      context: ./packages/comment-moderator-service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "lib/**/*.ts"
+            dest: .
