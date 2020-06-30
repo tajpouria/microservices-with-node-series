@@ -16,7 +16,6 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-  artifacts:
     - image: tajpouria/postandcomment-comment
       context: ./packages/comment-service
       docker:
@@ -25,7 +24,6 @@ build:
         manual:
           - src: "lib/**/*.ts"
             dest: .
-  artifacts:
     - image: tajpouria/postandcomment-post
       context: ./packages/post-service
       docker:
@@ -34,7 +32,6 @@ build:
         manual:
           - src: "lib/**/*.ts"
             dest: .
-  artifacts:
     - image: tajpouria/postandcomment-query
       context: ./packages/query-service
       docker:
@@ -43,7 +40,6 @@ build:
         manual:
           - src: "lib/**/*.ts"
             dest: .
-  artifacts:
     - image: tajpouria/postandcomment-event-broker
       context: ./packages/event-broker
       docker:
@@ -52,7 +48,6 @@ build:
         manual:
           - src: "lib/**/*.ts"
             dest: .
-  artifacts:
     - image: tajpouria/postandcomment-comment-moderator-service
       context: ./packages/comment-moderator-service
       docker:
