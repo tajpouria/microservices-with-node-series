@@ -1,5 +1,7 @@
-import nats, { Message } from "node-nats-streaming";
+import nats from "node-nats-streaming";
 import { randomBytes } from "crypto";
+
+import { TicketCreatedListener } from "./stan/ticket-created";
 
 console.clear();
 
@@ -7,24 +9,16 @@ const sc = nats.connect("stub", randomBytes(4).toString("hex"), {
   url: "http://localhost:4222",
 });
 
-const options = sc
-  .subscriptionOptions()
-  .setManualAckMode(true)
-  .setDeliverAllAvailable()
-  .setDurableName("Accounting-service");
-
 sc.on("connect", () => {
   log("Connected");
 
-  const sub = sc.subscribe(
-    "ticket:create",
-    "ticket-create-queue-group",
-    options,
-  );
+  const listener = new TicketCreatedListener(sc);
 
-  sub.on("message", (msg: Message) => {
-    log(`Received event #${msg.getSequence()}`);
-    log(msg.getData().toString("utf-8"));
+  listener.listen("qg").onMessage((errors, data, msg) => {
+    if (errors) console.error(errors);
+
+    console.log(data);
+
     msg.ack();
   });
 
