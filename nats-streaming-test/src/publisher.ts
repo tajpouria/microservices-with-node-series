@@ -1,5 +1,6 @@
 import nats from "node-nats-streaming";
 import * as ticketCreatedEvent from "./stan/ticket-created/event-schema.json";
+import { TicketCreatePublisher } from "./stan/ticket-created";
 
 console.clear();
 
@@ -7,22 +8,18 @@ const sc = nats.connect("stub", "abc", {
   url: "http://localhost:4222",
 });
 
-sc.on("connect", () => {
+sc.on("connect", async () => {
   log("Connected");
 
-  sc.publish(
-    ticketCreatedEvent.subject,
-    JSON.stringify({
-      id: "123",
-      title: "Concert",
-      price: 120,
-      userId: "2",
-      timestamp: Date.now(),
-    }),
-    () => {
-      log("Message published");
-    },
-  );
+  const publisher = new TicketCreatePublisher(sc);
+
+  await publisher.publish({
+    id: "123",
+    title: "Concert",
+    price: 120,
+    userId: "2",
+    timestamp: Date.now(),
+  });
 
   sc.on("close", () => {
     log("Connection closed");

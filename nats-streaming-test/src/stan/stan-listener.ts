@@ -2,11 +2,9 @@ import { Message, Stan, Subscription } from "node-nats-streaming";
 import Ajv, { ErrorObject } from "ajv";
 import { randomBytes } from "crypto";
 
-interface StanEventSchema {
-  subject: string;
-}
+import { StanEventSchema } from "./types";
 
-export abstract class StanListener {
+export abstract class StanListener<DataT extends object> {
   abstract eventSchema: StanEventSchema;
 
   protected ackWait: number = 5000;
@@ -36,7 +34,7 @@ export abstract class StanListener {
     return this;
   }
 
-  onMessage<DataT extends object = {}>(
+  onMessage(
     cb: (
       validationErrors: ErrorObject[] | null,
       data: DataT,
