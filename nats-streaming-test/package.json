@@ -13,7 +13,7 @@
     "typescript": "^3.9.6"
   },
   "dependencies": {
-    "@tajpouria/stub-common": "1.20.0",
+    "@tajpouria/stub-common": "1.21.0",
     "node-nats-streaming": "^0.3.2",
     "rxjs": "^6.6.0"
   }

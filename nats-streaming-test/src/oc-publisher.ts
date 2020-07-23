@@ -13,9 +13,12 @@ sc.on("connect", async () => {
 
   const publisher = new OrderCreatedPublisher(sc);
 
+  const ea = new Date();
+  ea.setSeconds(ea.getSeconds() + 20);
+
   await publisher.publish({
-    id: Math.random().toString(),
-    expiresAt: new Date().toISOString(),
+    id: "order-id",
+    expiresAt: ea.toString(),
     status: OrderStatus.Created,
     ticket: {
       userId: Math.random().toString(),
